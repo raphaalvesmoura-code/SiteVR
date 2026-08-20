@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contagem Regressiva - Greve Rota Mogiana</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #0a1f33 0%, #0d2b4a 50%, #1a1a1a 100%);
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+  }
+
+  .badge {
+    background: #c0392b;
+    color: #fff;
+    padding: 6px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(192,57,43,0.6);
+  }
+
+  h1 {
+    font-size: 2.2rem;
+    margin-bottom: 10px;
+    color: #ffffff;
+  }
+
+  h2 {
+    font-size: 1.1rem;
+    font-weight: 400;
+    color: #9fd3ff;
+    margin-bottom: 40px;
+    max-width: 600px;
+  }
+
+  .countdown {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .box {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    padding: 20px 25px;
+    min-width: 100px;
+    backdrop-filter: blur(6px);
+  }
+
+  .box span {
+    display: block;
+    font-size: 2.8rem;
+    font-weight: bold;
+    color: #ffcc00;
+  }
+
+  .box small {
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    color: #cccccc;
+    text-transform: uppercase;
+  }
+
+  .info {
+    background: rgba(255,255,255,0.05);
+    border-left: 4px solid #ffcc00;
+    padding: 18px 22px;
+    border-radius: 8px;
+    max-width: 600px;
+    text-align: left;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #e6e6e6;
+  }
+
+  .info strong {
+    color: #ffcc00;
+  }
+
+  .over {
+    font-size: 2rem;
+    color: #ff5555;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  footer {
+    margin-top: 40px;
+    font-size: 0.75rem;
+    color: #777;
+  }
+</style>
+</head>
+<body>
+
+  <div class="badge">⚠ Movimento Reivindicatório</div>
+  <h1>Contagem Regressiva para a Greve</h1>
+  <h2>Funcionários da Concessionária Rota Mogiana em mobilização pela falta de pagamento do Vale-Refeição (VR)</h2>
+
+  <div class="countdown" id="countdown">
+    <div class="box"><span id="days">00</span><small>Dias</small></div>
+    <div class="box"><span id="hours">00</span><small>Horas</small></div>
+    <div class="box"><span id="minutes">00</span><small>Minutos</small></div>
+    <div class="box"><span id="seconds">00</span><small>Segundos</small></div>
+  </div>
+
+  <div id="finished" style="display:none;" class="over">🚨 A GREVE JÁ COMEÇOU 🚨</div>
+
+  <div class="info">
+    <strong>Motivo:</strong> Ausência de repasse do benefício Vale-Refeição (VR) aos colaboradores.<br>
+    <strong>Início previsto:</strong> 25/08/2026 às 08h00.<br>
+    <strong>Reivindicação:</strong> Regularização imediata do pagamento do VR e garantias de que atrasos não voltarão a ocorrer.
+  </div>
+
+  <footer>Página informativa gerada para acompanhamento interno. Sem vínculo oficial com sindicato ou empresa.</footer>
+
+<script>
+  const targetDate = new Date("2026-08-25T08:00:00-03:00").getTime();
+
+  function updateCountdown() {
+    const now = new Date().getTime();
+    const distance = targetDate - now;
+
+    if (distance <= 0) {
+      document.getElementById("countdown").style.display = "none";
+      document.getElementById("finished").style.display = "block";
+      clearInterval(timer);
+      return;
+    }
+
+    const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+    document.getElementById("days").textContent = String(days).padStart(2, "0");
+    document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+    document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+    document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+  }
+
+  updateCountdown();
+  const timer = setInterval(updateCountdown, 1000);
+</script>
+
+</body>
+</html>
